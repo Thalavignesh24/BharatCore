@@ -3,6 +3,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, ValidationPipe } from '@nestjs/common';
 import { CreateUserDto } from './userDto/userCreateDto';
 import { UserUpdateDto } from './userDto/userUpdateDto';
+import { UserLoginDto } from './userDto/userLoginDto';
 import { UsersService } from './users.service';
 import { SuccessMessage } from 'src/common/success-message.decorator';
 
@@ -40,5 +41,11 @@ export class UsersController {
     @SuccessMessage('user deleted successfully', 200)
     userDelete(@Param("userId") id: string) {
         return this.usersService.deleteUser(id);
+    }
+
+    @Post('/login')
+    @SuccessMessage('user login successfully',200)
+    getLogin(@Body(ValidationPipe) userLoginData:UserLoginDto){
+        return this.usersService.userLogin(userLoginData)
     }
 }

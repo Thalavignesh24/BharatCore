@@ -15,7 +15,12 @@ export class Utils {
         return hash;
     }
 
-    emptyCheck(data: unknown){
+    async comparePasswordHash(password: string, hashPassword: string) {
+        const originalPassword = await bcrypt.compare(password, hashPassword);
+        return originalPassword;
+    }
+
+    emptyCheck(data: unknown) {
         if (
             !data ||
             data["length"] === 0 ||

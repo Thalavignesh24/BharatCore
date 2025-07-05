@@ -1,6 +1,6 @@
 
 
-import { Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
+import { Injectable, NotAcceptableException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { User } from './users.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -73,5 +73,20 @@ export class UsersService {
             throw new NotFoundException("users not found")
         }
         return user;
+    }
+
+    async userLogin(userLoginData: {}) {
+        const user = await this.userModel.findOne({ "email": userLoginData?.["email"] }, { _id: 0 });
+        if (!utils.emptyCheck(user)) {
+            const hashPassword = user?.["password"] ?? "";
+            const comparePassword = await utils.comparePasswordHash(userLoginData?.["password"], hashPassword);
+            if (comparePassword) {
+                return user;
+            } else {
+                throw new UnauthorizedException("login failed")
+            }
+        } else {
+            throw new NotFoundException("users not found")
+        }
     }
 }
