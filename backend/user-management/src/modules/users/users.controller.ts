@@ -13,27 +13,31 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) {
     }
     @Get()
+    @SuccessMessage('users list', 200)
     getUsers() {
         return this.usersService.getAllUsers();
     }
 
     @Get(":userId")
-    @SuccessMessage('User details')
+    @SuccessMessage('user details', 200)
     viewUsers(@Param("userId") id: string) {
         return this.usersService.getUser(id);
     }
 
     @Post()
+    @SuccessMessage('user created successfully', 201)
     userCreate(@Body(ValidationPipe) createUserDto: CreateUserDto) {
         return this.usersService.createUser(createUserDto)
     }
 
     @Patch(":userId")
+    @SuccessMessage('user updated successfully', 200)
     userUpdate(@Param("userId") id: string, @Body(ValidationPipe) userUpdateDto: UserUpdateDto) {
         return this.usersService.updateUser(id, userUpdateDto);
     }
 
     @Delete(":userId")
+    @SuccessMessage('user deleted successfully', 200)
     userDelete(@Param("userId") id: string) {
         return this.usersService.deleteUser(id);
     }

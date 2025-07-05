@@ -1,6 +1,6 @@
 
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { User } from './users.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -27,13 +27,13 @@ export class UsersService {
 
             const userDetails = await this.userModel.create(userData);
             if (userDetails) {
-                return responseHandler.successResponse(201, "user created successfully", userDetails);
+                return userDetails
             } else {
-                return responseHandler.failureResponse(422, "failed to create user", {});
+                throw new NotAcceptableException()
             }
 
         } catch (error) {
-            console.log(error);
+            throw new NotAcceptableException("Email already exists and email must be unique")
         }
     }
 
@@ -45,39 +45,33 @@ export class UsersService {
             }
         }, { new: true });
         if (user) {
-            return responseHandler.successResponse(200, "user updated successfully", {})
+            return user;
         } else {
-            return responseHandler.successResponse(200, "user not found", {});
+            throw new NotFoundException("user not found")
         }
     }
 
     async getUser(userId: string) {
-        return  await this.userModel.findOne({ userId }, { _id: 0, __v: 0 });
-
-        // const viewUser = await this.userModel.findOne({ userId }, { _id: 0, __v: 0 });
-        // if (viewUser) {
-        //     return responseHandler.successResponse(200, "user details", viewUser)
-        // } else {
-        //     return responseHandler.successResponse(200, "user not found", {});
-        // }
+        const user = await this.userModel.findOne({ userId }, { _id: 0, __v: 0 });
+        if (utils.emptyCheck(user)) {
+            throw new NotFoundException("user not found")
+        }
+        return user;
     }
 
     async deleteUser(userId: string) {
         const user = await this.userModel.deleteMany({ userId }, { _id: 0, __v: 0 });
-        if (user?.["deletedCount"] !== 0) {
-            return responseHandler.successResponse(200, "user deleted successfully", {})
-        } else {
-            return responseHandler.successResponse(200, "user not found", {});
+        if (user?.["deletedCount"] === 0) {
+            throw new NotFoundException("user not found")
         }
+        return user
     }
 
     async getAllUsers() {
-        return await this.userModel.find({}, { _id: 0, __v: 0 });
-        const users = await this.userModel.find({}, { _id: 0, __v: 0 });
-        if (!utils.emptyCheck(users)) {
-            return responseHandler.successResponse(200, "users list", users)
-        } else {
-            return responseHandler.successResponse(200, "no users found", users);
+        const user = await this.userModel.find({}, { _id: 0, __v: 0 });
+        if (utils.emptyCheck(user)) {
+            throw new NotFoundException("users not found")
         }
+        return user;
     }
 }
