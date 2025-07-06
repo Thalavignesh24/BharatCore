@@ -31,4 +31,13 @@ export class Utils {
         return false;
     }
 
+    async internalCallApi(url: string, method: object, body = {}) {
+        try {
+            const responseData = await fetch(url, method);
+            return await responseData.json();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }

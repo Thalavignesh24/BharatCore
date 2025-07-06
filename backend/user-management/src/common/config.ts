@@ -11,11 +11,18 @@ export class Config {
         return parseInt(env.PORT, 10);
     }
 
-    USERDB(){
+    USERDB() {
         if (!env.USERDB) {
             throw new Error('USERDB is not connected.');
         }
         return env.USERDB
+    }
+
+    LOOKUPDB() {
+        if (!env.LOOKUPDB) {
+            throw new Error('LOOKUPDB is not connected.');
+        }
+        return env.LOOKUPDB
     }
 
 }
