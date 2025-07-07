@@ -19,3 +19,22 @@ export class EmailLookup extends Document {
 }
 
 export const EmailLookupSchema = SchemaFactory.createForClass(EmailLookup);
+
+
+@Schema()
+export class PhoneLookup extends Document {
+
+    @Prop({
+        required: true
+    })
+    phoneRequestId: string
+
+    @Prop({ unique: true, required: true })
+    phoneValue: string;
+
+    @Prop({ type: Object })
+    phoneLookupData: object;
+}
+
+export const PhoneLookupSchema = SchemaFactory.createForClass(PhoneLookup);
+
