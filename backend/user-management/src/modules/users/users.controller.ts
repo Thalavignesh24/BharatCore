@@ -1,6 +1,6 @@
 
 
-import { Body, Controller, Delete, Get, Param, Patch, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Patch, Post, ValidationPipe } from '@nestjs/common';
 import { CreateUserDto } from './userDto/userCreateDto';
 import { UserUpdateDto } from './userDto/userUpdateDto';
 import { UserLoginDto } from './userDto/userLoginDto';
@@ -16,36 +16,66 @@ export class UsersController {
     @Get()
     @SuccessMessage('users list', 200)
     getUsers() {
-        return this.usersService.getAllUsers();
+        try {
+            return this.usersService.getAllUsers();
+        } catch (error) {
+            throw new InternalServerErrorException(error?.["message"]);
+        }
+
     }
 
     @Get(":userId")
     @SuccessMessage('user details', 200)
     viewUsers(@Param("userId") id: string) {
-        return this.usersService.getUser(id);
+        try {
+            return this.usersService.getUser(id);
+        } catch (error) {
+            throw new InternalServerErrorException(error?.["message"]);
+        }
+
     }
 
     @Post()
     @SuccessMessage('user created successfully', 201)
     userCreate(@Body(ValidationPipe) createUserDto: CreateUserDto) {
-        return this.usersService.createUser(createUserDto)
+        try {
+            return this.usersService.createUser(createUserDto);
+        } catch (error) {
+            throw new InternalServerErrorException(error?.["message"]);
+        }
+
     }
 
     @Patch(":userId")
     @SuccessMessage('user updated successfully', 200)
     userUpdate(@Param("userId") id: string, @Body(ValidationPipe) userUpdateDto: UserUpdateDto) {
-        return this.usersService.updateUser(id, userUpdateDto);
+        try {
+            return this.usersService.updateUser(id, userUpdateDto);
+        } catch (error) {
+            throw new InternalServerErrorException(error?.["message"]);
+        }
+
     }
 
     @Delete(":userId")
     @SuccessMessage('user deleted successfully', 200)
     userDelete(@Param("userId") id: string) {
-        return this.usersService.deleteUser(id);
+        try {
+            return this.usersService.deleteUser(id);
+        } catch (error) {
+            throw new InternalServerErrorException(error?.["message"]);
+        }
+
     }
 
     @Post('/login')
-    @SuccessMessage('user login successfully',200)
-    getLogin(@Body(ValidationPipe) userLoginData:UserLoginDto){
-        return this.usersService.userLogin(userLoginData)
+    @SuccessMessage('user login successfully', 200)
+    getLogin(@Body(ValidationPipe) userLoginData: UserLoginDto) {
+        try {
+            return this.usersService.userLogin(userLoginData)
+        } catch (error) {
+            throw new InternalServerErrorException(error?.["message"]);
+        }
+
     }
 }

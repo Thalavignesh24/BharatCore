@@ -15,9 +15,9 @@ export class CreateUserDto {
     @IsString()
     name: string
 
-    @IsNotEmpty()
-    @IsEmail()
-    email: string
+    @IsEmail({ allow_display_name: true }, { message: "Invalid Email" })
+    @IsNotEmpty({ message: "Email should not be empty" })
+    email: string;
 
     @IsNotEmpty()
     @IsStrongPassword()
