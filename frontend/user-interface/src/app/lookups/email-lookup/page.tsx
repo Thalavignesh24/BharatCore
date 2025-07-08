@@ -1,117 +1,109 @@
-"use client"
+'use client';
 
-import { SetStateAction, useEffect, useState } from 'react'
-
+import { useState } from 'react';
 import axios from 'axios';
-
 import JSONPretty from 'react-json-pretty';
-//import JSONPrettyMon from 'react-json-pretty/dist/monikai';
-
-
-//import ".././designs/Lookup.css";
-
+import 'react-json-pretty/themes/monikai.css'; // Optional: if you want a dark theme
 
 const EmailLookup = () => {
     const [inputValue, setInputValue] = useState('');
-
     const [userData, setUserData] = useState('');
+    const [validMessage, setValidMessage] = useState('');
 
-    const [valid, validCheck] = useState("");
-
-    const handleChange = (e: { target: { value: SetStateAction<string>; }; }) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     };
 
     const inputData = async () => {
         if (!inputValue) {
-            return validCheck("Please Enter Your Email")
+            setValidMessage('Please enter your email');
+            return;
         }
-        if (inputValue) {
-            try {
-                const res = await axios.post("http://127.0.0.1:2408/api/admin/indcore/email-data", {
-                    email: inputValue,
-                });
 
-                if (res?.["data"]?.["code"] === 422) {
-                    return validCheck("Please Enter The Valid Email")
-                } else {
-                    setUserData(res.data)
-                    setInputValue('');
-                    validCheck("")
-                }
+        try {
+            const res = await axios.post('http://localhost:4001/lookups/email', {
+                email: inputValue,
+            });
 
-
-            } catch (error) {
-                console.error("Error fetching email data:", error);
+            if (res.status === 422 || res.data?.code === 422) {
+                setValidMessage('Please enter a valid email');
+                return;
             }
+
+            setUserData(res.data);
+            setInputValue('');
+            setValidMessage('');
+        } catch (error) {
+            console.error('Error fetching email data:', error);
+            setValidMessage('Something went wrong. Please try again.');
         }
+    };
+
+    const handleReset = () => {
+        setInputValue('');
+        setUserData('');
+        setValidMessage('');
     };
 
     return (
         <div className="main">
-
-            <div className="header">
+            <header className="header">
                 <h1 id="title">EMAIL VERIFICATION</h1>
-            </div>
+            </header>
 
             <div className="container">
-                <img src="https://res.cloudinary.com/dfgwcxpwt/image/upload/v1747489184/upscalemedia-transformed_ek25pa.png">
-                </img><br>
-                </br>
+                <img
+                    src="https://res.cloudinary.com/dfgwcxpwt/image/upload/v1747489184/upscalemedia-transformed_ek25pa.png"
+                    alt="Verification Banner"
+                />
+
+                <br />
+
                 <input
                     type="text"
                     name="inputEmail"
                     id="input-box"
                     value={inputValue}
                     onChange={handleChange}
-                    placeholder="ENTER THE EMAIL"
+                    placeholder="Enter your email"
                 />
-                <p id="validErrMsg">
-                    {
-                        valid
-                    }
-                </p>
-                <button name="checkEmail" id="sub-button" onClick={inputData}>Click To Verify</button>
-                <br></br><br></br>
-                <a href="http://localhost:5173/ind-core/device/find-email" id="reset-button">Click To Refresh</a>
 
+                <p id="validErrMsg">{validMessage}</p>
 
-                <br></br>
-                <br></br>
+                <button id="sub-button" onClick={inputData}>
+                    Click To Verify
+                </button>
+                <br>
+                </br>
+                <br>
+                </br>
 
+                <button id="reset-button" onClick={handleReset}>
+                    Click To Refresh
+                </button>
 
-                <div id="data">
-                    <div id="data">
-                        {
-                            userData ? <h4>
-                                <table id="tableContent">
-                                    <th>
-                                        Email Lookup Details
-                                    </th>
-                                    <tr>
-                                        <td>
-                                            <JSONPretty id="json-pretty" data={userData}></JSONPretty>
-                                        </td>
-                                    </tr>
+                <br />
+                <br />
 
-                                </table>
-
-                            </h4> : ""
-                        }
-
-
-                    </div>
-                </div>
-
-
-
+                {userData && (
+                    <table id="tableContent">
+                        <thead>
+                            <tr>
+                                <th>Email Lookup Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <JSONPretty id="json-pretty" data={userData} />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                )}
             </div>
         </div>
     );
 };
 
 export default EmailLookup;
-
-
-
-
