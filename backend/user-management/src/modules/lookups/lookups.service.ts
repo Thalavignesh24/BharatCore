@@ -32,8 +32,8 @@ export class LookupsService {
         return emailData;
     }
 
-    async phoneLookup(phone: {}) {
-        const phoneValue = phone?.["phoneCode"] + phone?.["phoneNumber"];
+    async phoneLookup(phone:{}) {
+        const phoneValue = String(phone?.["phoneCode"]) + String(phone?.["phoneNumber"]);
         const result = phoneValue.substr(1);
         const phoneData = await this.phoneLookupModel.findOne({ phoneValue: result }, { _id: 0, __v: 0 });
 

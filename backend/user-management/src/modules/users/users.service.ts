@@ -17,6 +17,16 @@ export class UsersService {
     constructor(@InjectModel("users") private userModel: Model<User>,) { }
 
     async createUser(userData: {}) {
+        this.createUserUtils(userData);
+        const userDetails = await this.userModel.create(userData);
+        if (userDetails) {
+            return userDetails
+        } else {
+            throw new NotAcceptableException()
+        }
+    }
+
+    async createUserUtils(userData:{}){
         userData["userId"] = utils.naniod();
         if (userData?.["password"] !== userData?.["confirmPassword"]) {
             throw new BadRequestException('Password and Confirm Password must match');
@@ -27,13 +37,6 @@ export class UsersService {
         const emailCheck = await this.userModel.findOne({ "email": userData?.["email"] }, { _id: 0 });
         if (emailCheck) {
             throw new NotAcceptableException("Email already exists and email must be unique")
-        }
-
-        const userDetails = await this.userModel.create(userData);
-        if (userDetails) {
-            return userDetails
-        } else {
-            throw new NotAcceptableException()
         }
     }
 

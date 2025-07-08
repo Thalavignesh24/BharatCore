@@ -4,7 +4,7 @@ config();
 const env = process.env
 
 export class Config {
-    port(): number {
+    PORT(): number {
         if (!env.PORT) {
             throw new Error('PORT environment variable is not defined.');
         }
