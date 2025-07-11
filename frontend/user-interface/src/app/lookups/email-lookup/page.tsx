@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import JSONPretty from 'react-json-pretty';
 import 'react-json-pretty/themes/monikai.css'; // Optional: if you want a dark theme
+import '../common-design/lookups.css';
 
 const EmailLookup = () => {
     const [inputValue, setInputValue] = useState('');

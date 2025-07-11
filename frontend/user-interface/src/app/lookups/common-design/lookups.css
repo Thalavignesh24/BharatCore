@@ -1,0 +1,143 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #333;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#title {
+    font-size: 2.5rem;
+    color: #4a90e2;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px #ccc;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: scale(1.02);
+}
+
+.container img {
+    max-width: 120px;
+    margin-bottom: 20px;
+}
+
+.dropDown {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #4a90e2;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.dropDown:focus {
+    border-color: #2c6ecb;
+    outline: none;
+}
+
+#input-box {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid #4a90e2;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+}
+
+#input-box:focus {
+    border-color: #2c6ecb;
+    outline: none;
+}
+
+#validErrMsg {
+    color: red;
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+button {
+    width: 48%;
+    padding: 10px;
+    margin: 8px 1%;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#sub-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+#sub-button:hover {
+    background-color: #45a049;
+}
+
+#reset-button {
+    background-color: #f44336;
+    color: white;
+}
+
+#reset-button:hover {
+    background-color: #d32f2f;
+}
+
+#data {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#tableContent {
+    width: 100%;
+    background-color: #fff;
+    border-collapse: collapse;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#tableContent th {
+    background-color: #4a90e2;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+
+#tableContent td {
+    padding: 15px;
+    background-color: #f9f9f9;
+    text-align: left;
+    font-family: monospace;
+}

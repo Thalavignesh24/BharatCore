@@ -4,7 +4,7 @@ import { useState } from 'react';
 import JSONPretty from 'react-json-pretty';
 import 'react-json-pretty/themes/monikai.css';
 import axios from 'axios';
-//import '../designs/Lookup.css';
+import '../common-design/lookups.css';
 
 const PhoneLookup = () => {
     const [inputPhone, setInputPhone] = useState('');
