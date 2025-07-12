@@ -81,7 +81,7 @@ const PhoneLookup = () => {
                 <input
                     type="number"
                     name="inputPhone"
-                    id="input-box"
+                    id="input-box1"
                     value={inputPhone}
                     onChange={handlePhoneChange}
                     placeholder="Enter the phone number"

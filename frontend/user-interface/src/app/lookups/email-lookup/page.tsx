@@ -74,11 +74,6 @@ const EmailLookup = () => {
                 <button id="sub-button" onClick={inputData}>
                     Click To Verify
                 </button>
-                <br>
-                </br>
-                <br>
-                </br>
-
                 <button id="reset-button" onClick={handleReset}>
                     Click To Refresh
                 </button>
