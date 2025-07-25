@@ -5,6 +5,7 @@ import axios from 'axios';
 import JSONPretty from 'react-json-pretty';
 import 'react-json-pretty/themes/monikai.css'; // Optional: if you want a dark theme
 import '../common-design/lookups.css';
+import Image from 'next/image';
 
 const EmailLookup = () => {
     const [inputValue, setInputValue] = useState('');
@@ -53,9 +54,11 @@ const EmailLookup = () => {
             </header>
 
             <div className="container">
-                <img
+                <Image
                     src="https://res.cloudinary.com/dfgwcxpwt/image/upload/v1747489184/upscalemedia-transformed_ek25pa.png"
                     alt="Verification Banner"
+                    width={1000} // Replace with actual image width in px
+                    height={200} // Replace with actual image height in px
                 />
 
                 <br />

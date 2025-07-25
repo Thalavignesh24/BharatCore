@@ -5,6 +5,7 @@ import JSONPretty from 'react-json-pretty';
 import 'react-json-pretty/themes/monikai.css';
 import axios from 'axios';
 import '../common-design/lookups.css';
+import Image from 'next/image';
 
 const PhoneLookup = () => {
     const [inputPhone, setInputPhone] = useState('');
@@ -67,9 +68,11 @@ const PhoneLookup = () => {
             </header>
 
             <div className="container">
-                <img
+                <Image
                     src="https://res.cloudinary.com/dfgwcxpwt/image/upload/v1747553807/images_ugqucp_e_background_removal_f_png_akcd3w.png"
                     alt="Phone Verification"
+                    width={1000}
+                    height={200}
                 />
 
                 <select id="code" className="dropDown" value={selectedCode} onChange={handleCodeChange}>
