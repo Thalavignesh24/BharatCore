@@ -40,14 +40,14 @@ const PhoneLookup = () => {
         }
 
         try {
-            const res = await axios.post('http://localhost:4001/lookups/phone',
+            const res = await axios.post('https://bharatcore.onrender.com/lookups/phone',
                 {
                     phoneCode: selectedCode,
                     phoneNumber: inputPhone
                 }
             );
 
-            if (res.data.code === 422) {
+            if (res?.["status"] === 400 || res?.["data"]?.["statusCode"] === 400) {
                 setValidMessage('Please enter a valid phone number');
             } else {
                 setUserData(res.data);
@@ -57,7 +57,7 @@ const PhoneLookup = () => {
             }
         } catch (error) {
             console.error('Phone lookup error:', error);
-            setValidMessage('An error occurred. Please try again.');
+            setValidMessage('Please enter a valid phone number');
         }
     };
 

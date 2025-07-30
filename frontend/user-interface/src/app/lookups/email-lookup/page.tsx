@@ -23,11 +23,11 @@ const EmailLookup = () => {
         }
 
         try {
-            const res = await axios.post('http://localhost:4001/lookups/email', {
+            const res = await axios.post('https://bharatcore.onrender.com/lookups/email', {
                 email: inputValue,
             });
-
-            if (res.status === 422 || res.data?.code === 422) {
+            if (res?.["status"] === 400 || res?.["data"]?.["statusCode"] === 400) {
+                console.log(res.data);
                 setValidMessage('Please enter a valid email');
                 return;
             }
@@ -37,7 +37,7 @@ const EmailLookup = () => {
             setValidMessage('');
         } catch (error) {
             console.error('Error fetching email data:', error);
-            setValidMessage('Something went wrong. Please try again.');
+            setValidMessage('Please enter a valid email');
         }
     };
 
