@@ -15,9 +15,9 @@ export class UsersController {
     }
     @Get()
     @SuccessMessage('users list', 200)
-    getUsers() {
+    async getUsers() {
         try {
-            return this.usersService.getAllUsers();
+            return await this.usersService.getAllUsers();
         } catch (error) {
             throw new InternalServerErrorException(error?.["message"]);
         }
@@ -26,9 +26,9 @@ export class UsersController {
 
     @Get(":userId")
     @SuccessMessage('user details', 200)
-    viewUsers(@Param("userId") id: string) {
+    async viewUsers(@Param("userId") id: string) {
         try {
-            return this.usersService.getUser(id);
+            return await this.usersService.getUser(id);
         } catch (error) {
             throw new InternalServerErrorException(error?.["message"]);
         }
@@ -37,9 +37,9 @@ export class UsersController {
 
     @Post()
     @SuccessMessage('user created successfully', 201)
-    userCreate(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+    async userCreate(@Body(ValidationPipe) createUserDto: CreateUserDto) {
         try {
-            return this.usersService.createUser(createUserDto);
+            return await this.usersService.createUser(createUserDto);
         } catch (error) {
             throw new InternalServerErrorException(error?.["message"]);
         }
@@ -48,9 +48,9 @@ export class UsersController {
 
     @Patch(":userId")
     @SuccessMessage('user updated successfully', 200)
-    userUpdate(@Param("userId") id: string, @Body(ValidationPipe) userUpdateDto: UserUpdateDto) {
+    async userUpdate(@Param("userId") id: string, @Body(ValidationPipe) userUpdateDto: UserUpdateDto) {
         try {
-            return this.usersService.updateUser(id, userUpdateDto);
+            return await this.usersService.updateUser(id, userUpdateDto);
         } catch (error) {
             throw new InternalServerErrorException(error?.["message"]);
         }
@@ -59,9 +59,9 @@ export class UsersController {
 
     @Delete(":userId")
     @SuccessMessage('user deleted successfully', 200)
-    userDelete(@Param("userId") id: string) {
+    async userDelete(@Param("userId") id: string) {
         try {
-            return this.usersService.deleteUser(id);
+            return await this.usersService.deleteUser(id);
         } catch (error) {
             throw new InternalServerErrorException(error?.["message"]);
         }
@@ -70,9 +70,9 @@ export class UsersController {
 
     @Post('/login')
     @SuccessMessage('user login successfully', 200)
-    getLogin(@Body(ValidationPipe) userLoginData: UserLoginDto) {
+    async getLogin(@Body(ValidationPipe) userLoginData: UserLoginDto) {
         try {
-            return this.usersService.userLogin(userLoginData)
+            return await this.usersService.userLogin(userLoginData)
         } catch (error) {
             throw new InternalServerErrorException(error?.["message"]);
         }

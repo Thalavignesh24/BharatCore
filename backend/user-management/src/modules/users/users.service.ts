@@ -1,12 +1,12 @@
 
 
-import { Injectable, NotAcceptableException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotAcceptableException, NotFoundException, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { User } from './users.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Utils } from 'src/common/utils';
 import { ResponseHandler } from 'src/common/response.handler';
-import { BadRequestException } from '@nestjs/common';
+
 
 
 const utils = new Utils();
@@ -14,7 +14,7 @@ const responseHandler = new ResponseHandler();
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectModel("users") private userModel: Model<User>,) { }
+    constructor(@InjectModel("users") private readonly userModel: Model<User>,) { }
 
     async createUser(userData: {}) {
         this.createUserUtils(userData);
@@ -22,11 +22,11 @@ export class UsersService {
         if (userDetails) {
             return userDetails
         } else {
-            throw new NotAcceptableException()
+            throw new NotAcceptableException();
         }
     }
 
-    async createUserUtils(userData:{}){
+    async createUserUtils(userData: {}) {
         userData["userId"] = utils.naniod();
         if (userData?.["password"] !== userData?.["confirmPassword"]) {
             throw new BadRequestException('Password and Confirm Password must match');
