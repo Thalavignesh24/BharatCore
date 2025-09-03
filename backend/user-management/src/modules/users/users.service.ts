@@ -17,12 +17,15 @@ export class UsersService {
     constructor(@InjectModel("users") private readonly userModel: Model<User>,) { }
 
     async createUser(userData: {}) {
-        this.createUserUtils(userData);
+        const inputDataCheck = await this.createUserUtils(userData);
+        if (inputDataCheck) {
+            return inputDataCheck;
+        }
         const userDetails = await this.userModel.create(userData);
         if (userDetails) {
-            return userDetails
+            return userDetails;
         } else {
-            throw new NotAcceptableException();
+            return new NotAcceptableException("Failed create user")
         }
     }
 
@@ -36,7 +39,7 @@ export class UsersService {
 
         const emailCheck = await this.userModel.findOne({ "email": userData?.["email"] }, { _id: 0 });
         if (emailCheck) {
-            throw new NotAcceptableException("Email already exists and email must be unique")
+            return new NotAcceptableException("Email already exists and email must be unique")?.["response"]
         }
     }
 
