@@ -89,10 +89,10 @@ export class UsersService {
             if (comparePassword) {
                 return user;
             } else {
-                throw new UnauthorizedException("login failed")
+                return new UnauthorizedException("login failed")?.["response"]
             }
         } else {
-            throw new NotFoundException("users not found")
+            return new NotFoundException("users not found")
         }
     }
 }

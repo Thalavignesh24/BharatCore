@@ -36,7 +36,6 @@ export class UsersController {
     }
 
     @Post()
-    @SuccessMessage('user created successfully', 201)
     async userCreate(@Body(ValidationPipe) createUserDto: CreateUserDto) {
         try {
             return await this.usersService.createUser(createUserDto);
