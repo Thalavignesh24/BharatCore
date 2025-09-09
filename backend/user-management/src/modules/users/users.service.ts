@@ -66,17 +66,17 @@ export class UsersService {
     }
 
     async deleteUser(userId: string) {
-        const user = await this.userModel.deleteMany({ userId }, { _id: 0, __v: 0 });
+        const user = await this.userModel.deleteMany({ userId });
         if (user?.["deletedCount"] === 0) {
-            throw new NotFoundException("user not found")
+            return new NotFoundException("user not found")?.["response"];
         }
-        return user
+        return user;
     }
 
     async getAllUsers() {
         const user = await this.userModel.find({}, { _id: 0, __v: 0 });
         if (utils.emptyCheck(user)) {
-            throw new NotFoundException("users not found")
+            return new NotFoundException("users not found")?.["response"];
         }
         return user;
     }
@@ -92,7 +92,7 @@ export class UsersService {
                 return new UnauthorizedException("login failed")?.["response"]
             }
         } else {
-            return new NotFoundException("users not found")
+            return new NotFoundException("users not found")?.["response"]
         }
     }
 }
