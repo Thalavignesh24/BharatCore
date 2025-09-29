@@ -12,6 +12,7 @@
     "next": "^15.4.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.63.0",
     "react-json-pretty": "^2.2.0"
   },
   "devDependencies": {

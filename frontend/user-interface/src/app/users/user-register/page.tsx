@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import '../../users/common-design/register.css' // adjust path as needed
 
-type SigninForm = {
+type SignupForm = {
   name: string
   email: string
   password: string
@@ -19,19 +19,35 @@ export default function SignupPage () {
     handleSubmit,
     watch,
     formState: { errors }
-  } = useForm<SigninForm>()
+  } = useForm<SignupForm>()
 
-  const onSubmit = (data: SigninForm) => {
-    console.log(data)
+  const onSubmit = (data: SignupForm) => {
     setMessage(`✅ Account created for ${data.name}`)
   }
 
   return (
     <div className='container'>
       <div className='card'>
-        <h1 className='title'>Login</h1>
+        <h1 className='title'>Create Account</h1>
         <form onSubmit={handleSubmit(onSubmit)} className='form'>
           {/* Name */}
+          <div>
+            <label className='label'>Name</label>
+            <input
+              type='text'
+              {...register('name', {
+                required: 'Name is required',
+                validate: value =>
+                  value.trim() !== '' || 'Name cannot be empty or spaces only'
+              })}
+              className='input'
+            />
+            {errors.name && (
+              <p className='error' id='nameErr'>
+                {errors.name.message}
+              </p>
+            )}
+          </div>
 
           {/* Email */}
           <div>
@@ -68,9 +84,26 @@ export default function SignupPage () {
             )}
           </div>
 
+          {/* Confirm Password */}
+          <div>
+            <label className='label'>Confirm Password</label>
+            <input
+              type='password'
+              {...register('confirmPassword', {
+                required: 'Confirm your password',
+                validate: val =>
+                  val === watch('password') || 'Passwords do not match'
+              })}
+              className='input'
+            />
+            {errors.confirmPassword && (
+              <p className='error'>{errors.confirmPassword.message}</p>
+            )}
+          </div>
+
           {/* Submit */}
           <button type='submit' className='button'>
-            Sign In
+            Sign Up
           </button>
         </form>
 
