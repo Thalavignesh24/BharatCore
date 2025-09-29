@@ -6,12 +6,18 @@ import { EmailLookupSchema, PhoneLookupSchema } from './lookups.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: "email_lookups", schema: EmailLookupSchema },
-      { name: "phone_lookups", schema: PhoneLookupSchema }
-    ]),
+    MongooseModule.forFeature(
+      [
+        { name: "email_lookups", schema: EmailLookupSchema },
+        { name: "phone_lookups", schema: PhoneLookupSchema },
+      ],
+      "identity", // 👈 connection name, not inside the array
+    ),
   ],
   controllers: [LookupsController],
-  providers: [LookupsService]
+  providers: [LookupsService],
 })
+
 export class LookupsModule { }
+
+

@@ -10,8 +10,8 @@ const utils = new Utils();
 @Injectable()
 export class LookupsService {
     constructor(
-        @InjectModel("email_lookups") private emailLookupModel: Model<EmailLookup>,
-        @InjectModel("phone_lookups") private phoneLookupModel: Model<PhoneLookup>,
+        @InjectModel("email_lookups","identity") private emailLookupModel: Model<EmailLookup>,
+        @InjectModel("phone_lookups","identity") private phoneLookupModel: Model<PhoneLookup>,
     ) { }
 
     async emailLookup(email: {}) {
