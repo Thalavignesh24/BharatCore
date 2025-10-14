@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import '../../users/common-design/register.css' // adjust path as needed
+import '../../users/common-design/login.css' // adjust path as needed
 
 type SigninForm = {
   name: string
@@ -71,6 +71,9 @@ export default function SignupPage () {
           {/* Submit */}
           <button type='submit' className='button'>
             Sign In
+          </button>
+           <button type='reset' className='button_two'>
+            Reset
           </button>
         </form>
 

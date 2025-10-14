@@ -105,6 +105,9 @@ export default function SignupPage () {
           <button type='submit' className='button'>
             Sign Up
           </button>
+          <button type='reset' className='button_two'>
+            Reset
+          </button>
         </form>
 
         {message && <p className='message'>{message}</p>}

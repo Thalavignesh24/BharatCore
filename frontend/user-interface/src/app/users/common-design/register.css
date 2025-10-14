@@ -35,7 +35,7 @@
 }
 
 .input {
-  width: 100%;
+  width: 93%;
   border: 1px solid #d1d5db; /* gray-300 */
   border-radius: 0.5rem;
   padding: 0.5rem 0.75rem;
@@ -75,4 +75,29 @@
   margin-top: 1rem;
   text-align: center;
   color: #16a34a; /* green-600 */
+}
+
+.button {
+  width: 30%;
+  background: #2563eb; /* blue-600 */
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 15%;
+}
+
+.button_two {
+  width: 30%;
+  background: grey; /* blue-600 */
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 50%;
+  margin-top: -11.5%;
 }
