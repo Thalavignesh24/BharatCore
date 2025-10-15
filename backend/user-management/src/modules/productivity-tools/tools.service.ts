@@ -1,4 +1,5 @@
 
+import { InternalServerErrorException } from '@nestjs/common';
 import { generate } from 'generate-password'
 import { Utils } from 'src/common/utils';
 
@@ -10,14 +11,6 @@ export class ToolsService {
                 try {
                         let generatedPassword: string;
                         const includedFields = {
-                                "all_sets": {
-                                        length: requestedInputs?.["length"] ?? 10,
-                                        numbers: true,
-                                        symbols: true,
-                                        uppercase: true,
-                                        lowercase: true,
-                                        strict: true // ensures at least one char from each requested set
-                                },
                                 "default": {
                                         length: requestedInputs?.["length"] ?? 10,
                                         numbers: requestedInputs?.["numbers"] ?? false,
@@ -26,15 +19,14 @@ export class ToolsService {
                                         lowercase: requestedInputs?.["lowercase"] ?? false,
                                 }
                         }
-                        if (requestedInputs?.["all_sets"] || utils.emptyCheck(requestedInputs?.["all_sets"])) {
-                                generatedPassword = generate(includedFields["all_sets"]);
-                        } else {
-                                generatedPassword = generate(includedFields["default"]);
+                        if (parseInt(requestedInputs?.["length"]) < 4) {
+                                return "Password length must be greater than four";
                         }
+                        generatedPassword = generate(includedFields["default"]);
                         return generatedPassword;
 
                 } catch (error) {
-                        console.log(error);
+                        throw new InternalServerErrorException(error?.["message"]);
                 }
         }
 }
