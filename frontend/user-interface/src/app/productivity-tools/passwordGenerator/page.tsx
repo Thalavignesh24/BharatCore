@@ -1,25 +1,8 @@
 'use client'
-
-import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 
-type SigninForm = {
-  name: string
-  email: string
-  password: string
-  confirmPassword: string
-}
-
 export default function SignupPage () {
-  const [message, setMessage] = useState<string | null>(null)
-  const [userData, setUserData] = useState('')
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors }
-  } = useForm<SigninForm>()
+  const [userData, setUserData] = useState('');
 
   const onSubmit = async () => {
     const passwordLength = document
@@ -43,7 +26,7 @@ export default function SignupPage () {
       .item(0) as HTMLInputElement
 
     let inputData = {
-      length: parseInt(passwordLength.value) || 0,
+      length: Number.parseInt(passwordLength.value) || 0,
       numbers: numbers.checked || false,
       uppercase: uppercase.checked || false,
       lowercase: lowercase.checked || false,
