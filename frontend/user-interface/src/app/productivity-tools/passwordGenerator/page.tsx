@@ -1,3 +1,6 @@
+/* eslint-disable prefer-const, react/no-unescaped-entities, @typescript-eslint/no-unused-vars */
+
+
 'use client'
 import { useState } from 'react'
 
@@ -25,7 +28,7 @@ export default function SignupPage () {
       .getElementsByClassName('specialCase')
       .item(0) as HTMLInputElement
 
-    let inputData = {
+    const inputData = {
       length: Number.parseInt(passwordLength.value) || 0,
       numbers: numbers.checked || false,
       uppercase: uppercase.checked || false,
@@ -47,7 +50,7 @@ export default function SignupPage () {
         body: JSON.stringify(inputData)
       }
     )
-    let result = await await apiCall.json()
+    const result = await await apiCall.json()
     setUserData(result?.['data']?.['generatedPassword'])
   }
 
