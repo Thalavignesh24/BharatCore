@@ -11,7 +11,7 @@ export class ToolsController {
         ) { }
 
         @SuccessMessage('Password is generated', 200)
-        @Post('password-generator')
+        @Post('/password-generator')
         passwordGenerator(@Body() requestedInputs: {}) {
                 try {
                         return this.toolsService.passwordGenerator(requestedInputs);
