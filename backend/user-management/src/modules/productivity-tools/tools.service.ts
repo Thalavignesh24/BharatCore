@@ -23,7 +23,7 @@ export class ToolsService {
                                 return "Password length must be greater than four";
                         }
                         generatedPassword = generate(includedFields["default"]);
-                        return generatedPassword;
+                        return { generatedPassword };
 
                 } catch (error) {
                         throw new InternalServerErrorException(error?.["message"]);
