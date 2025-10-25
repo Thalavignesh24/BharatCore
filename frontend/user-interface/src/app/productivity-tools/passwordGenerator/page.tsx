@@ -1,11 +1,12 @@
 /* eslint-disable prefer-const, react/no-unescaped-entities, @typescript-eslint/no-unused-vars */
 
-
 'use client'
 import { useState } from 'react'
 
+import '../../productivity-tools/passwordGenerator/passwordGenerator.css'
+
 export default function SignupPage () {
-  const [userData, setUserData] = useState('');
+  const [userData, setUserData] = useState('')
 
   const onSubmit = async () => {
     const passwordLength = document
@@ -36,8 +37,10 @@ export default function SignupPage () {
       symbols: specialcase.checked || false
     }
 
-    if (inputData?.length < 5) {
-      alert('Password Length should not be empty and must be greater than 4')
+    if (inputData?.length < 5 || inputData?.length > 30) {
+      alert(
+        'Password length should not be empty and must be greater than 4 and less than or equal to 30.'
+      )
       return
     }
     const apiCall = await fetch(
@@ -56,8 +59,12 @@ export default function SignupPage () {
 
   return (
     <div className='container'>
-      <label>Password Length:</label>
-      <input type='number' className='passwordLength' />
+      <h1 className='title'> Random Password Generator </h1>
+      <input
+        type='text'
+        className='passwordLength'
+        placeholder='Enter the Password Length'
+      />
       <br></br> <br></br>
       <input type='checkbox' className='lowerCase' />{' '}
       <span>Include LoweCase (a-z)</span>
@@ -72,6 +79,9 @@ export default function SignupPage () {
       <span>Include Special Characters ('!"#$%&'()*+,-./:;?@[\]^_`~)</span>
       <br></br> <br></br>
       <button onClick={onSubmit}>Generate Password</button>
+      <br></br> <br></br>
+      <label>Generated Password:</label>
+      <br></br>
       <p id='passwordResult'>{userData}</p>
     </div>
   )
