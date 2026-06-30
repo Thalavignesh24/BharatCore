@@ -3,7 +3,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema()
+@Schema({ timestamps: true })
 export class EmailLookup extends Document {
 
     @Prop({
@@ -21,7 +21,7 @@ export class EmailLookup extends Document {
 export const EmailLookupSchema = SchemaFactory.createForClass(EmailLookup);
 
 
-@Schema()
+@Schema({ timestamps: true })
 export class PhoneLookup extends Document {
 
     @Prop({
@@ -34,6 +34,7 @@ export class PhoneLookup extends Document {
 
     @Prop({ type: Object })
     phoneLookupData: object;
+
 }
 
 export const PhoneLookupSchema = SchemaFactory.createForClass(PhoneLookup);
